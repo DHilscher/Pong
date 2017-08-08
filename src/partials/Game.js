@@ -15,7 +15,7 @@ export default class Game {
 		this.boardGap = 10;
 		this.board = new Board(this.width, this.height);
 
-			this.player1 = new Paddle(
+		this.player1 = new Paddle(
 			this.height,
 			this.paddleWidth,
 			this.paddleHeight,
@@ -38,6 +38,8 @@ export default class Game {
 			this.width,
 			this.height
 		);
+		this.balls = [];
+		this.ballCount = -1;
 		this.score1 = new Score(this.width / 2 - 60, 30, 30);
 		this.score2 = new Score(this.width / 2 + 30, 30, 30);
 
@@ -46,9 +48,9 @@ export default class Game {
 				case KEYS.spaceBar:
 					this.pause = !this.pause;
 					break;
-					case KEYS.b:
-					this.extraBalls;
-					break;
+				case KEYS.b:
+					this.balls.push(new Ball(8, this.width, this.height));
+					this.ballCount++
 			}
 		});
 	}
@@ -56,8 +58,8 @@ export default class Game {
 		if (this.pause) {
 			return;
 		}
-		if (this.extraBalls) {
-			this.ball.render(svg);
+		for (this.a = 0; this.a >= this.ballCount; this.a++) {
+			this.balls[this.a].render(svg, this.player1, this.player2);
 		}
 		this.gameElement.innerHTML = '';
 		let svg = document.createElementNS(SVG_NS, 'svg');
@@ -68,9 +70,10 @@ export default class Game {
 		this.gameElement.appendChild(svg);
 		this.board.render(svg);
 		this.player1.render(svg);
-		this.player2.render(svg);	
+		this.player2.render(svg);
 		this.ball.render(svg, this.player1, this.player2);
 		this.score1.render(svg, this.player1.score);
 		this.score2.render(svg, this.player2.score);
+		// this.anotherBall.render(svg, this.player1, this.player2);
 	}
 }
