@@ -17,9 +17,10 @@ export default class Ball {
         while (this.vy === 0) {
             this.vy = Math.floor(Math.random() * 10 - 5);
         }
+
         this.vx = this.direction * (6 - Math.abs(this.vy));
     }
-    wallCollision(player1, player2) {
+    wallCollision(player1, player2, player3, player4) {
         const hitLeft = this.x - this.radius <= 0;
         const hitRight = this.x + this.radius >= this.boardWidth;
         const hitTop = this.y - this.radius <= 0;
@@ -36,7 +37,7 @@ export default class Ball {
             this.vy = -this.vy;
         }
     }
-    paddleCollison(player1, player2) {
+    paddleCollison(player1, player2, player3, player4) {
         if (this.vx > 0) {
             let paddle = player2.coordinates(player2.x, player2.y, player2.width, player2.height);
             let [leftX, rightX, topY, bottomY] = paddle;
@@ -48,6 +49,18 @@ export default class Ball {
                 this.vx = -this.vx;
                 this.ping.play();
             }
+        } else if (this.vx > 0) {
+            let paddle = player4.coordinates(player4.x, player4.y, player4.width, player4.height);
+            let [leftX, rightX, topY, bottomY] = paddle;
+            if (
+                this.x + this.radius >= leftX
+                && this.y >= topY
+                && this.y <= bottomY
+            ) {
+                this.vx = -this.vx;
+                this.ping.play();
+            }
+        
         } else {
             let paddle = player1.coordinates(player1.x, player1.y, player1.width, player1.height);
             let [leftX, rightX, topY, bottomY] = paddle;
@@ -66,11 +79,11 @@ export default class Ball {
         player.score++;
         this.reset();
     }
-    render(svg, player1, player2) {
+    render(svg, player1, player2, player3, player4) {
         this.x += this.vx;
         this.y += this.vy;
-        this.wallCollision(player1, player2);
-        this.paddleCollison(player1, player2);
+        this.wallCollision(player1, player2, player3, player4);
+        this.paddleCollison(player1, player2, player3, player4);
         let circle = document.createElementNS(SVG_NS, 'circle');
         circle.setAttributeNS(null, 'fill', 'white');
         circle.setAttributeNS(null, 'r', 8);

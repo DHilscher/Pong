@@ -14,6 +14,47 @@ export default class Game {
 		this.paddleHeight = 56;
 		this.boardGap = 10;
 		this.board = new Board(this.width, this.height);
+		
+		// multiple vertical paddles
+
+		// this.player1 = new Paddle(
+		// 	this.height,
+		// 	this.paddleWidth,
+		// 	this.paddleHeight,
+		// 	this.boardGap,
+		// 	(this.height - this.paddleHeight) / 2 + 40,
+		// 	KEYS.a,
+		// 	KEYS.z
+		// );
+		// this.player3 = new Paddle(
+		// 	this.height - 80,
+		// 	this.paddleWidth,
+		// 	this.paddleHeight,
+		// 	this.boardGap,
+		// 	(this.height - this.paddleHeight) / 2 - 40,
+		// 	KEYS.a,
+		// 	KEYS.z
+		// );
+		// this.player2 = new Paddle(
+		// 	this.height,
+		// 	this.paddleWidth,
+		// 	this.paddleHeight,
+		// 	this.width - this.paddleWidth - this.boardGap,
+		// 	(this.height - this.paddleHeight) / 2 + 40,
+		// 	KEYS.up,
+		// 	KEYS.down
+		// );
+		// this.player4 = new Paddle(
+		// 	this.height - 80,
+		// 	this.paddleWidth,
+		// 	this.paddleHeight,
+		// 	this.width - this.paddleWidth - this.boardGap,
+		// 	(this.height - this.paddleHeight) / 2 - 40,
+		// 	KEYS.up,
+		// 	KEYS.down
+		// );
+
+		// multiple horizontal paddles
 
 			this.player1 = new Paddle(
 			this.height,
@@ -24,11 +65,29 @@ export default class Game {
 			KEYS.a,
 			KEYS.z
 		);
+		this.player3 = new Paddle(
+			this.height,
+			this.paddleWidth,
+			this.paddleHeight,
+			this.boardGap + 100,
+			(this.height - this.paddleHeight) / 2,
+			KEYS.a,
+			KEYS.z
+		);
 		this.player2 = new Paddle(
 			this.height,
 			this.paddleWidth,
 			this.paddleHeight,
 			this.width - this.paddleWidth - this.boardGap,
+			(this.height - this.paddleHeight) / 2,
+			KEYS.up,
+			KEYS.down
+		);
+		this.player4 = new Paddle(
+			this.height,
+			this.paddleWidth,
+			this.paddleHeight,
+			this.width - this.paddleWidth - this.boardGap - 100,
 			(this.height - this.paddleHeight) / 2,
 			KEYS.up,
 			KEYS.down
@@ -49,6 +108,7 @@ export default class Game {
 			}
 		});
 	}
+
 	render() {
 		if (this.pause) {
 			return;
@@ -62,8 +122,10 @@ export default class Game {
 		this.gameElement.appendChild(svg);
 		this.board.render(svg);
 		this.player1.render(svg);
-		this.player2.render(svg);	
-		this.ball.render(svg, this.player1, this.player2);
+		this.player2.render(svg);
+		this.player3.render(svg);
+		this.player4.render(svg);		
+		this.ball.render(svg, this.player1, this.player2), this.player3, this.player4;
 		this.score1.render(svg, this.player1.score);
 		this.score2.render(svg, this.player2.score);
 	}
