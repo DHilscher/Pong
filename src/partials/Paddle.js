@@ -14,11 +14,11 @@ export default class Paddle {
         document.addEventListener('keydown', event => {
             switch (event.key) {
                 case up:
-                this.up();
-                break;
+                    this.up();
+                    break;
                 case down:
-                this.down();
-                break;
+                    this.down();
+                    break;
             }
 
         });
@@ -34,9 +34,8 @@ export default class Paddle {
     up() {
         this.y = Math.max(this.y - this.speed, 0);
     }
-    down() {  
+    down() {
         this.y = Math.min(this.y + this.speed, this.boardHeight - this.height);
-        
     }
     render(svg) {
         let rect = document.createElementNS(SVG_NS, 'rect');

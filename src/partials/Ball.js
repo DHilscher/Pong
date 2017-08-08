@@ -6,7 +6,7 @@ export default class Ball {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.direction = 1;
-        this.ping = new Audio('public/sounds/pong-01.wav');
+        this.ping = new Audio('public/sounds/pong-03.wav');
         this.reset();
     }
     reset() {
@@ -17,7 +17,6 @@ export default class Ball {
         while (this.vy === 0) {
             this.vy = Math.floor(Math.random() * 10 - 5);
         }
-
         this.vx = this.direction * (6 - Math.abs(this.vy));
     }
     wallCollision(player1, player2) {
@@ -59,7 +58,7 @@ export default class Ball {
             ) {
                 this.vx = -this.vx;
                 this.ping.play();
-                
+
             }
         }
     }
@@ -72,9 +71,6 @@ export default class Ball {
         this.y += this.vy;
         this.wallCollision(player1, player2);
         this.paddleCollison(player1, player2);
-        //detect score
-        //if right wall touched increment player1 score and give direction advantage
-        //if left wall touched increment player 2 score and give direction advantage
         let circle = document.createElementNS(SVG_NS, 'circle');
         circle.setAttributeNS(null, 'fill', 'white');
         circle.setAttributeNS(null, 'r', 8);
@@ -82,5 +78,4 @@ export default class Ball {
         circle.setAttributeNS(null, 'cy', this.y);
         svg.appendChild(circle);
     }
-
 }
