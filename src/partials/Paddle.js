@@ -20,7 +20,6 @@ export default class Paddle {
                     this.down();
                     break;
             }
-
         });
     }
     coordinates(x, y, width, height) {

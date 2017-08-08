@@ -46,12 +46,18 @@ export default class Game {
 				case KEYS.spaceBar:
 					this.pause = !this.pause;
 					break;
+					case KEYS.b:
+					this.extraBalls;
+					break;
 			}
 		});
 	}
 	render() {
 		if (this.pause) {
 			return;
+		}
+		if (this.extraBalls) {
+			this.ball.render(svg);
 		}
 		this.gameElement.innerHTML = '';
 		let svg = document.createElementNS(SVG_NS, 'svg');
