@@ -58,7 +58,7 @@ export default class Game {
 		if (this.pause) {
 			return;
 		}
-		for (this.a = 0; this.a >= this.ballCount; this.a++) {
+		for (this.a = 0; this.a <= this.ballCount; this.a++) {
 			this.balls[this.a].render(svg, this.player1, this.player2);
 		}
 		this.gameElement.innerHTML = '';
